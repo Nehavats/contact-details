@@ -1,0 +1,30 @@
+[
+  {
+    "firstName": "Olivia",
+    "lastName": "John",
+    "phone": "(555) 123-4567",
+    "email": "olivia.perry@example.com",
+    "address": "123 Maple Street, Springfield, IL 62704, USA.",
+    "businessName": "ABC Corp",
+    "streetAddress": "123 Main Street",
+    "city": "Springfield",
+    "country": "United States",
+    "owner": "Devon Lane",
+    "followers": ["A", "B"],
+    "tags": ["Shared Contact", "VIP"]
+  },
+  {
+    "firstName": "Liam",
+    "lastName": "Patel",
+    "phone": "(555) 987-6543",
+    "email": "liam.patel@example.com",
+    "address": "500 Market Street, San Francisco, CA 94103, USA.",
+    "businessName": "XYZ LLC",
+    "streetAddress": "500 Market Street",
+    "city": "San Francisco",
+    "country": "United States",
+    "owner": "Leslie Alexander",
+    "followers": ["C"],
+    "tags": ["Prospect"]
+  }
+]

@@ -1,0 +1,10 @@
+<h2 class="panel-title">Notes</h2>
+<ul class="list">
+  <li *ngFor="let note of items; trackBy: track" class="note">
+    <div class="between">
+      <strong class="strong">{{ note.title }}</strong>
+      <span class="muted">{{ note.time }}</span>
+    </div>
+    <div class="note-text">{{ note.body }}</div>
+  </li>
+</ul>

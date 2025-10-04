@@ -1,0 +1,10 @@
+<h2 class="panel-title">Tasks</h2>
+<ul class="list">
+  <li *ngFor="let t of items; trackBy: track" class="task">
+    <input type="checkbox" [checked]="t.done" (change)="toggleTask(t)" />
+    <div>
+      <div><strong class="strong">{{ t.text }}</strong></div>
+      <div class="muted">Due: {{ t.due }}</div>
+    </div>
+  </li>
+</ul>

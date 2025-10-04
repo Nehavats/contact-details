@@ -1,0 +1,172 @@
+<div class="pb-3" *ngIf="!field?.hidden">
+  <div class="text-xs field-label">
+    <span>{{ field?.label }}</span>
+    <span *ngIf="isEmpty(value) && !isEditing" class="empty">Empty</span>
+  </div>
+
+  <!-- Edit Mode -->
+  <div *ngIf="isEditing" [ngSwitch]="field?.type">
+    <input 
+      *ngSwitchCase="'string'"
+      type="text"
+      [value]="value || ''"
+      (input)="onValueChange($any($event.target).value)"
+      class="form-input"
+    />
+    
+    <input 
+      *ngSwitchCase="'phone'"
+      type="tel"
+      [value]="value || ''"
+      (input)="onValueChange($any($event.target).value)"
+      class="form-input"
+    />
+    
+    <input 
+      *ngSwitchCase="'email'"
+      type="email"
+      [value]="value || ''"
+      (input)="onValueChange($any($event.target).value)"
+      class="form-input"
+    />
+    
+    <textarea 
+      *ngSwitchCase="'string-multiline'"
+      [value]="value || ''"
+      (input)="onValueChange($any($event.target).value)"
+      class="form-input"
+      rows="3"
+    ></textarea>
+    
+    <select 
+      *ngSwitchCase="'radio'"
+      [value]="value || ''"
+      (change)="onValueChange($any($event.target).value)"
+      class="form-input"
+    >
+      <option value="">Select...</option>
+      <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+    </select>
+    
+    <div *ngSwitchCase="'multi-select'" class="multi-select-edit">
+      <div *ngFor="let option of field.options" class="checkbox-item">
+        <input 
+          type="checkbox"
+          [id]="field.key + '_' + option"
+          [checked]="asArray(value).includes(option)"
+          (change)="onMultiSelectChange(option, $any($event.target).checked)"
+        />
+        <label [for]="field.key + '_' + option">{{ option }}</label>
+      </div>
+    </div>
+    
+    <input 
+      *ngSwitchDefault
+      type="text"
+      [value]="value || ''"
+      (input)="onValueChange($any($event.target).value)"
+      class="form-input"
+    />
+  </div>
+
+  <!-- Display Mode -->
+
+
+  <!-- Display Mode -->
+  <ng-container *ngIf="!isEditing" [ngSwitch]="field?.type">
+    <div *ngSwitchCase="'phone'" class="row between">
+      <!-- Display mode -->
+      <div *ngIf="!isFieldEditing" class="row between" style="width: 100%">
+        <a class="link" [href]="'tel:' + (value || '')">{{ value || '—' }}</a>
+        <div class="row op60">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path
+              stroke-width="1.5"
+              d="M2.5 4.5c0-.828.672-1.5 1.5-1.5h3c.69 0 1.28.47 1.45 1.14l1 4a1.5 1.5 0 0 1-.39 1.43L8.5 11.5a13 13 0 0 0 4 4l1.93-1.06c.43-.24.95-.27 1.4-.08l3.94 1.54c.58.23.96.79.96 1.42v3c0 .828-.672 1.5-1.5 1.5H19C10.163 22 2.5 14.337 2.5 5.5v-1z"
+            />
+          </svg>
+          <svg class="icon" viewBox="0 0 24 24" (click)="startFieldEdit()" style="cursor: pointer">
+            <path
+              stroke-width="1.5"
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"
+            />
+            <path
+              stroke-width="1.5"
+              d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+            />
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Edit mode -->
+      <div *ngIf="isFieldEditing" class="row between" style="width: 100%">
+        <input 
+          type="tel"
+          [value]="value || ''"
+          (input)="onValueChange($any($event.target).value)"
+          class="form-input"
+          style="flex: 1; margin-right: 8px"
+        />
+        <div class="row">
+          <button (click)="saveFieldEdit()" class="btn-small">✓</button>
+          <button (click)="cancelFieldEdit()" class="btn-small">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'email'" class="row between">
+      <!-- Display mode -->
+      <div *ngIf="!isFieldEditing" class="row between" style="width: 100%">
+        <a class="link" [href]="'mailto:' + (value || '')">{{ value || '—' }}</a>
+        <div class="row op60">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path stroke-width="1.5" d="M3 5.5h18v13H3z" />
+            <path stroke-width="1.5" d="M3 6l9 7 9-7" />
+          </svg>
+          <svg class="icon" viewBox="0 0 24 24" (click)="startFieldEdit()" style="cursor: pointer">
+            <path
+              stroke-width="1.5"
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"
+            />
+            <path
+              stroke-width="1.5"
+              d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+            />
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Edit mode -->
+      <div *ngIf="isFieldEditing" class="row between" style="width: 100%">
+        <input 
+          type="email"
+          [value]="value || ''"
+          (input)="onValueChange($any($event.target).value)"
+          class="form-input"
+          style="flex: 1; margin-right: 8px"
+        />
+        <div class="row">
+          <button (click)="saveFieldEdit()" class="btn-small">✓</button>
+          <button (click)="cancelFieldEdit()" class="btn-small">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <p *ngSwitchCase="'string-multiline'" class="text-sm pre">
+      {{ value || '—' }}
+    </p>
+    <p *ngSwitchCase="'radio'" class="text-sm">{{ value || '—' }}</p>
+
+    <div *ngSwitchCase="'multi-select'" class="row wrap gap">
+      <span
+        *ngFor="let v of asArray(value); trackBy: track"
+        class="pill"
+      >
+        {{ v }}
+      </span>
+      <span *ngIf="!asArray(value).length" class="text-sm">—</span>
+    </div>
+
+    <p *ngSwitchDefault class="text-sm">{{ value || '—' }}</p>
+  </ng-container>
+</div>

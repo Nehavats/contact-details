@@ -1,0 +1,98 @@
+{
+  "default": {
+    "columns": [
+      {
+        "key": "left",
+        "sections": [{ "key": "contactDetails" }]
+      },
+      {
+        "key": "middle",
+        "sections": [{ "key": "conversations" }]
+      },
+      {
+        "key": "right",
+        "sections": [{ "key": "notes" }, { "key": "tasks" }]
+      }
+    ]
+  },
+  "alt": {
+    "columns": [
+      {
+        "key": "left",
+        "sections": [{ "key": "contactDetails" }]
+      },
+      {
+        "key": "middle",
+        "sections": [{ "key": "notes" }, { "key": "tasks" }]
+      },
+      {
+        "key": "right",
+        "sections": [{ "key": "conversations" }]
+      }
+    ]
+  },
+  "opt3": {
+    "columns": [
+      {
+        "key": "left",
+        "sections": [{ "key": "notes" }, { "key": "tasks" }]
+      },
+      {
+        "key": "middle",
+        "sections": [{ "key": "contactDetails" }]
+      },
+      {
+        "key": "right",
+        "sections": [{ "key": "conversations" }]
+      }
+    ]
+  },
+  "opt4": {
+    "columns": [
+      {
+        "key": "left",
+        "sections": [{ "key": "conversations" }]
+      },
+      {
+        "key": "middle",
+        "sections": [{ "key": "notes" }, { "key": "tasks" }]
+      },
+      {
+        "key": "right",
+        "sections": [{ "key": "contactDetails" }]
+      }
+    ]
+  },
+  "opt5": {
+    "columns": [
+      {
+        "key": "left",
+        "sections": [{ "key": "conversations" }, { "key": "notes" }]
+      },
+      {
+        "key": "middle",
+        "sections": [{ "key": "contactDetails" }]
+      },
+      {
+        "key": "right",
+        "sections": [{ "key": "tasks" }]
+      }
+    ]
+  },
+  "opt6": {
+    "columns": [
+      {
+        "key": "left",
+        "sections": [{ "key": "tasks" }]
+      },
+      {
+        "key": "middle",
+        "sections": [{ "key": "conversations" }, { "key": "notes" }]
+      },
+      {
+        "key": "right",
+        "sections": [{ "key": "contactDetails" }]
+      }
+    ]
+  }
+}

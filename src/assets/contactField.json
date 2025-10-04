@@ -1,0 +1,85 @@
+{
+  "folders": [
+    {
+      "name": "Contact",
+      "icon": "user",
+      "fields": [
+        {
+          "key": "firstName",
+          "label": "First Name",
+          "type": "string"
+        },
+        {
+          "key": "lastName",
+          "label": "Last Name",
+          "type": "string"
+        },
+        {
+          "key": "phone",
+          "label": "Phone Number",
+          "type": "phone"
+        },
+        {
+          "key": "email",
+          "label": "Email",
+          "type": "email"
+        },
+        {
+          "key": "address",
+          "label": "Address",
+          "type": "string-multiline"
+        }
+      ]
+    },
+    {
+      "name": "Additional Info",
+      "icon": "info",
+      "fields": [
+        {
+          "key": "businessName",
+          "label": "Business Name",
+          "type": "string"
+        },
+        {
+          "key": "streetAddress",
+          "label": "Street Address",
+          "type": "string"
+        },
+        {
+          "key": "city",
+          "label": "City",
+          "type": "string"
+        },
+        {
+          "key": "country",
+          "label": "Country",
+          "type": "radio",
+          "options": [
+            "United States",
+            "Canada",
+            "United Kingdom",
+            "Australia"
+          ]
+        },
+        {
+          "key": "owner",
+          "label": "Owner",
+          "type": "radio",
+          "options": [
+            "Devon Lane",
+            "Leslie Alexander",
+            "Courtney Henry"
+          ],
+          "hidden": true
+        },
+        {
+          "key": "followers",
+          "label": "Followers",
+          "type": "multi-select",
+          "options": ["A", "B", "C", "D"],
+          "hidden": true
+        }   
+      ]
+    }
+  ]
+}

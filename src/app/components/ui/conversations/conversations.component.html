@@ -1,0 +1,10 @@
+<h2 class="panel-title">Conversations</h2>
+<ul class="list">
+  <li *ngFor="let msg of items; trackBy: track" class="bubble">
+    <div class="between">
+      <strong class="strong">{{ msg.author }}</strong>
+      <span class="muted">{{ msg.time }}</span>
+    </div>
+    <div class="msg-text">{{ msg.text }}</div>
+  </li>
+</ul>

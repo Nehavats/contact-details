@@ -1,0 +1,67 @@
+<div class="card">
+  <button class="head" (click)="open = !open" [attr.aria-expanded]="open">
+    <div class="title">
+      <svg
+        *ngIf="folder?.icon === 'user'"
+        class="icon"
+        viewBox="0 0 24 24"
+      >
+        <circle cx="12" cy="8" r="4" stroke-width="1.5" />
+        <path
+          stroke-width="1.5"
+          d="M4 20c0-4.418 3.582-8 8-8s8 3.582 8 8"
+        />
+      </svg>
+      <svg
+        *ngIf="folder?.icon === 'info'"
+        class="icon"
+        viewBox="0 0 24 24"
+      >
+        <circle cx="12" cy="12" r="9" stroke-width="1.5" />
+        <path stroke-width="1.5" d="M12 8h.01M11 11h2v5h-2z" />
+      </svg>
+      <span>{{ folder?.name }}</span>
+    </div>
+    <div>
+      <button
+        class="btn"
+        *ngIf="folder?.name === 'Contact' && !isAdding"
+        (click)="add()"
+      >
+        + Add
+      </button>
+      <button
+        class="btn"
+        *ngIf="isAdding"
+        (click)="save()"
+      >
+        Save
+      </button>
+      <button
+        class="btn"
+        *ngIf="isAdding"
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+      <svg
+        class="icon chev"
+        [style.transform]="open ? 'rotate(90deg)' : 'rotate(0deg)'"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-width="1.5" d="M9 6l6 6-6 6" />
+      </svg>
+    </div>
+  </button>
+
+  <div *ngIf="open" class="body">
+    <ng-container *ngFor="let f of filteredFields(); trackBy: trackField">
+      <ui-field-row 
+        [field]="f" 
+        [value]="isAdding ? newContactData[f.key] : data?.[f.key]" 
+        [isEditing]="isAdding"
+        (valueChange)="onFieldValueChange(f.key, $event)">
+      </ui-field-row>
+    </ng-container>
+  </div>
+</div>

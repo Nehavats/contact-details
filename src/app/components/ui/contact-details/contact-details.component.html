@@ -1,0 +1,105 @@
+
+<div class="toolbar">
+  <h2 class="panel-title">Contact Details</h2>
+  <div class="group-slider">
+    <span class="counter">{{ idx + 1 }} of {{ total }}</span>
+    <button
+      class="btn"
+      (click)="prev()"
+      [disabled]="idx === 0"
+      aria-label="Previous"
+    >
+      ‹
+    </button>
+    <button
+      class="btn"
+      (click)="next()"
+      [disabled]="idx >= total - 1"
+      aria-label="Next"
+    >
+      ›
+    </button>
+  </div>
+</div>
+
+<div class="card pad" *ngIf="current as c">
+  <div class="between">
+    <div class="row">
+      <div class="avatar">{{ initials(fullName(c)) }}</div>
+      <div style="min-width: 0">
+        <div class="row wrap8">
+          <h6 class="summary-name">{{ fullName(c) || '—' }}</h6>
+         
+        </div>
+        <div class="muted">{{ c.businessName || '—' }}</div>
+      </div>
+    </div>
+    <div class="actions" aria-label="quick actions">
+      <a
+        class="icon-btn"
+        [class.disabled]="!c.phone"
+        [href]="c.phone ? 'tel:' + c.phone : null"
+        title="Call"
+      >
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            stroke-width="1.5"
+            d="M2.5 4.5c0-.828.672-1.5 1.5-1.5h3c.69 0 1.28.47 1.45 1.14l1 4a1.5 1.5 0 0 1-.39 1.43L8.5 11.5a13 13 0 0 0 4 4l1.93-1.06c.43-.24.95-.27 1.4-.08l3.94 1.54c.58.23.96.79.96 1.42v3c0 .828-.672 1.5-1.5 1.5H19C10.163 22 2.5 14.337 2.5 5.5v-1z"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+ <div class="meta-row" role="group" aria-label="owner and followers">
+    <div class="meta-item">
+      <div class="meta-label">Owner</div>
+      <button class="pill" aria-haspopup="listbox" aria-label="Change owner">
+        <span class="mini-av" style="width:26px;height:26px;display:inline-block;border-radius:999px;overflow:hidden">
+          <img src="https://images.unsplash.com/photo-1545996124-5b7a8a3c9f54?w=80&q=60&auto=format&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover">
+        </span>
+        <span class="name">{{ c.owner }}</span>
+        <span class="chev">▾</span>
+      </button>
+    </div>
+
+  </div>
+
+
+  <div class="tags-container">
+   
+    <div class="meta-label">Tags</div>
+
+  <div class="tags-row" role="list" aria-label="Tags">
+    <div class="tag" role="listitem"  *ngFor="let t of c.tags || []; trackBy: track"
+        >
+          {{ t }} <button class="x" aria-label="remove tag">×</button></div>
+  </div>
+  </div>
+</div>
+
+<div class="group">
+  <svg viewBox="0 0 24 24" class="search-icon" aria-hidden="true">
+    <path
+      fill="#6b7280"
+      d="M10 4a6 6 0 104.472 10.028l4.75 4.75 1.414-1.414-4.75-4.75A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"
+    />
+  </svg>
+  <input
+    class="search"
+    type="search"
+    [(ngModel)]="filter"
+    placeholder="Search fields & folders"
+  />
+</div>
+
+<ng-container *ngIf="folders$ | async as folders">
+  <ui-folder-card
+    *ngFor="let folder of folders; trackBy: trackFolder; let i = index"
+    [folder]="folder"
+    [data]="current || {}"
+    [filter]="filter"
+    [defaultOpen]="i === 0"
+  >
+  </ui-folder-card>
+</ng-container>

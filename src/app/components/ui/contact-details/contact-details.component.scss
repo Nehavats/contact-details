@@ -1,0 +1,268 @@
+// :root{
+//     --panel-w: 340px;
+//     --bg: #f3f5f7;
+//     --card-bg: #ffffff;
+//     --muted: #6b7280;
+//     --accent: #0b5cff;
+//     --chip-bg: #e6f0ff;
+//     --pill-bg: #f3f4f6;
+//     --border: #e6eef7;
+//   }
+
+.panel-title {
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.group-slider {
+  display: flex;
+}
+
+h4 {
+  margin: 7px 0;
+}
+
+.btn {
+
+  padding: 0px 10px;
+  border: none;
+  background: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 12px;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &.primary {
+    background: #0b57d0;
+    color: #fff;
+    border-color: #0b57d0;
+  }
+}
+
+.counter {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.search {
+  padding: 8px 18px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  width: 100%;
+  font-size: 12px;
+
+  &:hover {
+    border-color: #c7c7c7;
+  }
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+
+  &.pad {
+    padding: 16px;
+  }
+}
+
+.between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wrap8 {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.summary-name {
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #374151;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+}
+
+.tag {
+  font-size: 12px;
+  border: 1px solid #f3d78f;
+  background: #b7c6f5;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.link {
+  color: #0b57d0;
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.icon-btn {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+
+  &:hover {
+    background: #f7f7f7;
+  }
+}
+
+.icon-btn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  stroke: #4b5563;
+  fill: none;
+}
+
+.group {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  .search-icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+    fill: #999;
+  }
+
+  input {
+    padding-left: 28px;
+    padding-right: 35px; /* space for icon */
+  }
+}
+
+/* tags row */
+.tags-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding: 6px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fbfdff, #fff);
+  border: 1px solid rgba(14, 20, 30, 0.03);
+}
+.tag {
+  background: #e6f0ff;
+  color: #1f2937;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(11, 92, 255, 0.06);
+}
+.tag .x {
+  background: transparent;
+  border: 0;
+  font-weight: 700;
+  cursor: pointer;
+  color: rgba(15, 23, 36, 0.6);
+}
+
+.meta-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 10px;
+}
+.meta-item {
+  flex: 1;
+}
+.meta-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  border: 1px solid rgba(14, 20, 30, 0.04);
+  font-size: 13px;
+  cursor: pointer;
+}
+.pill .mini-av {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid #fff;
+}
+.pill .name {
+  font-weight: 600;
+}

@@ -2,6 +2,7 @@
   display: block;
   min-height: 100vh;
   padding: 16px;
+  background: #f9fafb;
 }
 
 .container {
@@ -26,6 +27,7 @@ h1 {
   font-size: 18px;
   margin: 0;
   color: #1f2937;
+  font-weight: 600;
 }
 
 .control-row {
@@ -35,15 +37,22 @@ h1 {
 }
 
 .select {
-  padding: 0;
-  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   outline: none;
   background: #fff;
-  font-size: 10px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
 
   &:hover {
-    border-color: #c7c7c7;
+    border-color: #d1d5db;
+  }
+
+  &:focus {
+    border-color: #0b57d0;
+    box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.1);
   }
 }
 
@@ -64,6 +73,11 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
 }
 
 .row {

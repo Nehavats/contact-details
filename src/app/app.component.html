@@ -28,7 +28,7 @@
     <!-- LEFT column -->
     <section class="col">
       <ng-container *ngFor="let s of layout.columns[0]?.sections">
-        <contact-details *ngIf="s.key==='contactDetails'"></contact-details>
+        <contact-details *ngIf="s.key==='contactDetails'" [layoutKey]="activeKey"></contact-details>
         <conversations-panel
           *ngIf="s.key === 'conversations'"
           [items]="(conversations$ | async) || []"
@@ -47,7 +47,7 @@
     <!-- MIDDLE column -->
     <section class="col">
       <ng-container *ngFor="let s of layout.columns[1]?.sections">
-        <contact-details *ngIf="s.key==='contactDetails'"></contact-details>
+        <contact-details *ngIf="s.key==='contactDetails'" [layoutKey]="activeKey"></contact-details>
         <conversations-panel
           *ngIf="s.key === 'conversations'"
           [items]="(conversations$ | async) || []"
@@ -66,7 +66,7 @@
     <!-- RIGHT column -->
     <section class="col">
       <ng-container *ngFor="let s of layout.columns[2]?.sections">
-        <contact-details *ngIf="s.key==='contactDetails'"></contact-details>
+        <contact-details *ngIf="s.key==='contactDetails'" [layoutKey]="activeKey"></contact-details>
         <conversations-panel
           *ngIf="s.key === 'conversations'"
           [items]="(conversations$ | async) || []"

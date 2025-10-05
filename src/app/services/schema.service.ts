@@ -32,8 +32,9 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FolderDef } from '../models';
-import { map, shareReplay } from 'rxjs';
+import { FolderDef, PageLayout } from '../models';
+import { map, shareReplay, combineLatest } from 'rxjs';
+import { LayoutService } from './layout.service';
 
 @Injectable({ providedIn: 'root' })
 export class SchemaService {
@@ -65,12 +66,10 @@ export class SchemaService {
     .get<{ folders: ReadonlyArray<FolderDef> }>('/api/schema')
     .pipe(shareReplay({ bufferSize: 1, refCount: false }));
 
-  /**
-   * Constructor - Inject HTTP client for schema retrieval
-   * 
-   * @param http - Angular HTTP client for API communication
-   */
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private layoutService: LayoutService
+  ) {}
 
   /**
    * Get Form Folder Definitions
@@ -89,5 +88,51 @@ export class SchemaService {
    */
   getFolders() {
     return this.cache$.pipe(map((r) => r.folders));
+  }
+
+  /**
+   * Get Form Folder Definitions with Custom Ordering
+   * 
+   * Returns folders ordered according to the specified layout configuration.
+   * If the layout has a folderOrder property, folders will be reordered accordingly.
+   * Otherwise, returns folders in their default order.
+   * 
+   * @param layoutKey - The layout key to get folder ordering from
+   * @returns Observable<ReadonlyArray<FolderDef>> - Array of folder definitions in custom order
+   */
+  getFoldersWithOrder(layoutKey: string) {
+    return combineLatest([
+      this.cache$,
+      this.layoutService.get(layoutKey)
+    ]).pipe(
+      map(([schema, layout]) => {
+        const folders = schema.folders;
+        
+        // If layout has custom folder order, apply it
+        if (layout?.folderOrder && layout.folderOrder.length > 0) {
+          const orderedFolders: FolderDef[] = [];
+          
+          // Add folders in the specified order
+          layout.folderOrder.forEach(folderName => {
+            const folder = folders.find(f => f.name === folderName);
+            if (folder) {
+              orderedFolders.push(folder);
+            }
+          });
+          
+          // Add any remaining folders not in the custom order
+          folders.forEach(folder => {
+            if (!layout.folderOrder!.includes(folder.name)) {
+              orderedFolders.push(folder);
+            }
+          });
+          
+          return orderedFolders;
+        }
+        
+        // Return default order if no custom ordering specified
+        return folders;
+      })
+    );
   }
 }

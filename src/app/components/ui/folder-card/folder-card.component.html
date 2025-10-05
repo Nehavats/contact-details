@@ -1,5 +1,5 @@
 <div class="card">
-  <button class="head" (click)="open = !open" [attr.aria-expanded]="open">
+  <button class="head" (click)="toggleOpen($event)" [attr.aria-expanded]="open">
     <div class="title">
       <svg
         *ngIf="folder?.icon === 'user'"
@@ -22,11 +22,11 @@
       </svg>
       <span>{{ folder?.name }}</span>
     </div>
-    <div>
+    <div class="actions">
       <button
         class="btn"
         *ngIf="folder?.name === 'Contact' && !isAdding"
-        (click)="add()"
+        (click)="add($event)"
       >
         + Add
       </button>

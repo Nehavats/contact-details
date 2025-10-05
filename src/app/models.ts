@@ -7,6 +7,7 @@ export interface LayoutColumn {
 
 export interface PageLayout {
   columns: ReadonlyArray<LayoutColumn>;
+  folderOrder?: string[];
 }
 
 export type FieldType =

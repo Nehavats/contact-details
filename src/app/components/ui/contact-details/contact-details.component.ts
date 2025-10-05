@@ -37,11 +37,11 @@
  * @since 2025-10-04
  */
 
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { map } from 'rxjs';
+import { map, BehaviorSubject, combineLatest, switchMap } from 'rxjs';
 import { Contact, FolderDef } from 'src/app/models';
 import { ContactsService } from 'src/app/services/contacts.service';
 import { SchemaService } from 'src/app/services/schema.service';
@@ -55,14 +55,20 @@ import { FolderCardComponent } from '../folder-card/folder-card.component';
   templateUrl: './contact-details.component.html',
   styleUrls: ['./contact-details.component.scss']
 })
-export class ContactDetailsComponent {
+export class ContactDetailsComponent implements OnChanges {
+  
+  @Input() layoutKey: string = 'default';
   
   filter = '';
   idx = 0;
   total = 0;
   contacts$ = this.contactsSvc.contacts$;
   current: Contact | null = null;
-  folders$ = this.schemaSvc.getFolders();
+  
+  private layoutKey$ = new BehaviorSubject<string>(this.layoutKey);
+  folders$ = this.layoutKey$.pipe(
+    switchMap(layoutKey => this.schemaSvc.getFoldersWithOrder(layoutKey))
+  );
 
   constructor(
     private contactsSvc: ContactsService,
@@ -73,6 +79,12 @@ export class ContactDetailsComponent {
       this.idx = Math.min(this.idx, Math.max(0, this.total - 1));
       this.current = list[this.idx] ?? null;
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['layoutKey']) {
+      this.layoutKey$.next(this.layoutKey);
+    }
   }
 
   prev() {

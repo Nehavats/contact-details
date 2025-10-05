@@ -96,11 +96,10 @@ export class AppComponent {
   getLayoutDisplayName(key: string): string {
     const displayNames: Record<string, string> = {
       'default': 'Default',
-      'alt': 'Alternative',
-      'opt3': 'Option 3',
-      'opt4': 'Option 4',
+      'folderUpdate': 'Folder Switch',
+      'columnSwitch': 'Column Switch',
+      'columnSwitch2': 'Column Switch 2',
       'opt5': 'Option 5',
-      'opt6': 'Option 6'
     };
     
     // Return custom name if defined, otherwise capitalize the key

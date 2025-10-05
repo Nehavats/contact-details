@@ -35,7 +35,7 @@
  * @since 2025-10-04
  */
 
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FolderDef, FieldDef, Contact } from 'src/app/models';
 import { FieldRowComponent } from '../field-row/field-row.component';
@@ -49,7 +49,7 @@ import { ContactsService } from 'src/app/services/contacts.service';
   templateUrl: './folder-card.component.html',
   styleUrls: ['./folder-card.component.scss'],
 })
-export class FolderCardComponent {
+export class FolderCardComponent implements OnChanges {
   
   @Input() folder!: FolderDef;
   @Input() data!: Record<string, any>;
@@ -64,6 +64,19 @@ export class FolderCardComponent {
   newContactData: Record<string, any> = {};
   constructor(private contactsSvc: ContactsService) {}
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['defaultOpen']) {
+      this.open = this.defaultOpen;
+    }
+  }
+
+  toggleOpen(event: Event) {
+    // Only toggle if we're not in adding mode
+    if (!this.isAdding) {
+      this.open = !this.open;
+    }
+  }
+
   filteredFields(): ReadonlyArray<FieldDef> {
     const f = this.filter.trim().toLowerCase();
     if (!f) return this.folder?.fields ?? [];
@@ -74,7 +87,10 @@ export class FolderCardComponent {
     );
   }
 
-  add() {
+  add(event?: Event) {
+    if (event) {
+      event.stopPropagation(); // Prevent the header click from firing
+    }
     this.isAdding = true;
     this.open = true; // Ensure folder is expanded when adding
     

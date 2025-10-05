@@ -4,6 +4,8 @@ A modern, dynamic Contact Relationship Management (CRM) application built with A
 
 ## 🚀 How to Run the App
 
+**Deployed App Link**: https://contact-details-rho.vercel.app/
+
 ### Prerequisites
 - Node.js (v16 or higher)
 - npm (v8 or higher)

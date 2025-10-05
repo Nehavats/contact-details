@@ -1,10 +1,19 @@
-# Contact Details CRM
+# Contact Details CRM (Mobile Friendly )
 
 A modern, dynamic Contact Relationship Management (CRM) application built with Angular 15. This application provides a comprehensive interface for managing contact information with dynamic layouts, form generation, and real-time data management.
 
 ## 🚀 How to Run the App
 
 **Deployed App Link**: https://contact-details-rho.vercel.app/
+
+Web View 
+<img width="1510" height="896" alt="Screenshot 2025-10-05 at 5 06 04 PM" src="https://github.com/user-attachments/assets/463b7cea-983a-4912-a4f2-2a7838559061" />
+
+
+Mobile View 
+
+<img width="1511" height="901" alt="Screenshot 2025-10-05 at 5 06 35 PM" src="https://github.com/user-attachments/assets/b0b9f4c5-7d3b-48b9-b63e-9a9279658144" />
+
 
 ### Prerequisites
 - Node.js (v16 or higher)

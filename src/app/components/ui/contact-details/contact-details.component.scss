@@ -283,3 +283,62 @@ h4 {
   font-weight: 600;
   font-size: 14px;
 }
+
+/* Loading States */
+.loading {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.loading-skeleton {
+  opacity: 0.7;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-text {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  height: 16px;
+  width: 120px;
+}
+
+.folder-skeleton .card {
+  margin-bottom: 12px;
+}
+
+.folder-skeleton .head {
+  background: #f9fafb;
+}
+
+.folder-skeleton .title .skeleton-text {
+  width: 80px;
+  height: 14px;
+}
+
+.folder-skeleton .title .icon.skeleton {
+  width: 16px;
+  height: 16px;
+}
+
+.folder-skeleton .actions .btn.skeleton {
+  width: 40px;
+  height: 20px;
+}
+
+.folder-skeleton .actions .icon.chev.skeleton {
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

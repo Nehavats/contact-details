@@ -2,11 +2,12 @@
 <div class="toolbar">
   <h2 class="panel-title">Contact Details</h2>
   <div class="group-slider">
-    <span class="counter">{{ idx + 1 }} of {{ total }}</span>
+    <span class="counter" *ngIf="!isLoading">{{ idx + 1 }} of {{ total }}</span>
+    <span class="counter loading" *ngIf="isLoading">Loading...</span>
     <button
       class="btn"
       (click)="prev()"
-      [disabled]="idx === 0"
+      [disabled]="idx === 0 || isLoading"
       aria-label="Previous"
     >
       ‹
@@ -14,7 +15,7 @@
     <button
       class="btn"
       (click)="next()"
-      [disabled]="idx >= total - 1"
+      [disabled]="idx >= total - 1 || isLoading"
       aria-label="Next"
     >
       ›
@@ -22,21 +23,54 @@
   </div>
 </div>
 
-<div class="card pad" *ngIf="current as c">
+<!-- Loading skeleton -->
+<div class="card pad loading-skeleton" *ngIf="isLoading">
   <div class="between">
     <div class="row">
-      <div class="avatar">{{ initials(fullName(c)) }}</div>
+      <div class="avatar skeleton"></div>
       <div style="min-width: 0">
         <div class="row wrap8">
-          <h6 class="summary-name">{{ fullName(c) || '—' }}</h6>
+          <div class="summary-name skeleton-text"></div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="icon-btn skeleton"></div>
+    </div>
+  </div>
+
+  <div class="meta-row" role="group" aria-label="owner and followers">
+    <div class="meta-item">
+      <div class="meta-label skeleton-text"></div>
+      <div class="pill skeleton"></div>
+    </div>
+  </div>
+
+  <div class="tags-container">
+    <div class="meta-label skeleton-text"></div>
+    <div class="tags-row">
+      <div class="tag skeleton"></div>
+      <div class="tag skeleton"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Actual contact card -->
+<div class="card pad" *ngIf="current && !isLoading">
+  <div class="between">
+    <div class="row">
+      <div class="avatar">{{ initials(fullName(current)) }}</div>
+      <div style="min-width: 0">
+        <div class="row wrap8">
+          <h6 class="summary-name">{{ fullName(current) || '—' }}</h6>
         </div>
       </div>
     </div>
     <div class="actions" aria-label="quick actions">
       <a
         class="icon-btn"
-        [class.disabled]="!c.phone"
-        [href]="c.phone ? 'tel:' + c.phone : null"
+        [class.disabled]="!current?.phone"
+        [href]="current?.phone ? 'tel:' + current.phone : null"
         title="Call"
       >
         <svg class="icon" viewBox="0 0 24 24">
@@ -56,7 +90,7 @@
         <span class="mini-av" style="width:26px;height:26px;display:inline-block;border-radius:999px;overflow:hidden">
           <img src="https://images.unsplash.com/photo-1545996124-5b7a8a3c9f54?w=80&q=60&auto=format&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover">
         </span>
-        <span class="name">{{ c.owner }}</span>
+        <span class="name">{{ current?.owner }}</span>
         <span class="chev">▾</span>
       </button>
     </div>
@@ -69,7 +103,7 @@
     <div class="meta-label">Tags</div>
 
   <div class="tags-row" role="list" aria-label="Tags">
-    <div class="tag" role="listitem"  *ngFor="let t of c.tags || []; trackBy: track"
+    <div class="tag" role="listitem"  *ngFor="let t of current?.tags || []; trackBy: track"
         >
           {{ t }} <button class="x" aria-label="remove tag">×</button></div>
   </div>
@@ -91,13 +125,44 @@
   />
 </div>
 
+<!-- Loading skeleton for folders -->
+<div class="folder-skeleton" *ngIf="isLoading">
+  <div class="card">
+    <div class="head skeleton">
+      <div class="title">
+        <div class="icon skeleton"></div>
+        <div class="skeleton-text"></div>
+      </div>
+      <div class="actions">
+        <div class="btn skeleton"></div>
+        <div class="icon chev skeleton"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="head skeleton">
+      <div class="title">
+        <div class="icon skeleton"></div>
+        <div class="skeleton-text"></div>
+      </div>
+      <div class="actions">
+        <div class="btn skeleton"></div>
+        <div class="icon chev skeleton"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Actual folders -->
 <ng-container *ngIf="folders$ | async as folders">
-  <ui-folder-card
-    *ngFor="let folder of folders; trackBy: trackFolder; let i = index"
-    [folder]="folder"
-    [data]="current || {}"
-    [filter]="filter"
-    [defaultOpen]="true"
-  >
-  </ui-folder-card>
+  <ng-container *ngIf="!isLoading">
+    <ui-folder-card
+      *ngFor="let folder of folders; trackBy: trackFolder; let i = index"
+      [folder]="folder"
+      [data]="current || {}"
+      [filter]="filter"
+      [defaultOpen]="true"
+    >
+    </ui-folder-card>
+  </ng-container>
 </ng-container>

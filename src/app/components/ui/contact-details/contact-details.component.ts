@@ -64,6 +64,7 @@ export class ContactDetailsComponent implements OnChanges {
   total = 0;
   contacts$ = this.contactsSvc.contacts$;
   current: Contact | null = null;
+  isLoading = true;
   
   private layoutKey$ = new BehaviorSubject<string>(this.layoutKey);
   folders$ = this.layoutKey$.pipe(
@@ -74,10 +75,19 @@ export class ContactDetailsComponent implements OnChanges {
     private contactsSvc: ContactsService,
     private schemaSvc: SchemaService
   ) {
-    this.contacts$.pipe(map((list) => list ?? [])).subscribe((list) => {
-      this.total = list.length;
-      this.idx = Math.min(this.idx, Math.max(0, this.total - 1));
-      this.current = list[this.idx] ?? null;
+    this.contacts$.subscribe((list) => {
+      if (list === null) {
+        // Still loading
+        this.isLoading = true;
+        this.current = null;
+        this.total = 0;
+      } else {
+        // Data loaded
+        this.isLoading = false;
+        this.total = list.length;
+        this.idx = Math.min(this.idx, Math.max(0, this.total - 1));
+        this.current = list[this.idx] ?? null;
+      }
     });
   }
 

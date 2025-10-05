@@ -218,7 +218,8 @@ The application supports 6 different layout configurations:
 ## 🐛 Known Issues
 
 ### Performance Considerations
-3. **Search Optimization**: No debouncing on search input (immediate filtering)
+1. **Search Optimization**: No debouncing on search input (immediate filtering)
+2. **Tag Deletion**: Tags are not getting deleted
 
 ### Browser Compatibility
 - **Tested**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
